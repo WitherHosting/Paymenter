@@ -33,6 +33,11 @@ class TicketResource extends Resource
 
     public static string|\UnitEnum|null $navigationGroup = 'Administration';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return !config('settings.tickets_disabled', false);
+    }
+       
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::where('status', 'open')->count() ?: null;
